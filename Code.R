@@ -14,10 +14,12 @@ str(exc)
 colnames(exc) <- c('Date', 'argentine', 'brazil', 'Chile', 'colombian', 'mexican', 'uruguay')
 
 exc %>%
-  mutate(pct_arg = (lag(argentine)-argentine)/argentine*100)
+  arrange(Date)
+  mutate(pct_arg = (lag(brazil)-brazil)/brazil*100)
 
 exc %>%
-  mutate(exc_arge = (lag(argentine) - argentine)/argentine) %>%
+  arrange(Date) %>%
+  mutate(exc_arge = (lag(argentine) - argentine)/argentine*100) %>%
   group_by(year(Date)) %>%
   timetk::plot_seasonal_diagnostics(Date, exc_arge, .feature_set = c('week', 'month.lbl', 'quarter'))
   
